@@ -5,34 +5,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     const iframes = [...document.querySelectorAll('iframe')];
     iframes.forEach(iframe => {
       const src = iframe.src;
-      if (src.includes('youtube.com') && 
-          !src.includes('account.youtube.com') && 
-          !src.includes('youtube.com/account') && 
-          (src.includes('embed') || src.includes('watch'))) {
+      if (src.includes('embed') || src.includes('watch')) {
         videos.push(src);
       }
     });
 
     function extractVideoUrl() {
       const currentUrl = document.URL;
-
-      if (currentUrl.includes('youtube.com')) {
-        const videoIdMatch = currentUrl.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-        if (videoIdMatch) {
-          return `https://www.youtube.com/watch?v=${videoIdMatch[1]}`;
-        }
-      } else if (currentUrl.includes('pornhub.com')) {
-        const pornhubIdMatch = currentUrl.match(/viewkey=([a-zA-Z0-9]+)/);
-        if (pornhubIdMatch) {
-          return `https://www.pornhub.com/view_video.php?viewkey=${pornhubIdMatch[1]}`;
-        }
-      } else if (currentUrl.includes('vimeo.com')) {
-        const vimeoIdMatch = currentUrl.match(/vimeo.com\/([0-9]+)/);
-        if (vimeoIdMatch) {
-          return `https://vimeo.com/${vimeoIdMatch[1]}`;
-        }
+      const videoIdMatch = currentUrl.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+      if (videoIdMatch) {
+        return `${currentUrl.split('?')[0]}?v=${videoIdMatch[1]}`;
       }
-
+      const otherIdMatch = currentUrl.match(/viewkey=([a-zA-Z0-9]+)/);
+      if (otherIdMatch) {
+        return `${currentUrl.split('?')[0]}?viewkey=${otherIdMatch[1]}`;
+      }
       return null;
     }
 
@@ -52,7 +39,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       overlay.style.color = '#fff';
       overlay.style.zIndex = '9999';
       overlay.style.padding = '20px';
-      overlay.style.overflowY = 'auto'; // 스크롤 활성화
+      overlay.style.overflowY = 'auto';
       overlay.style.display = 'flex'; 
       overlay.style.flexDirection = 'column'; 
       overlay.style.alignItems = 'center'; 
@@ -108,8 +95,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         }
       });
 
-      overlay.onclick = () => {
-        if (overlay.parentNode) {
+      overlay.onclick = (event) => {
+        if (event.target === overlay) {
           overlay.parentNode.removeChild(overlay);
         }
       };
