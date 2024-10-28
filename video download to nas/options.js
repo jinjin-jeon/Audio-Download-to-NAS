@@ -57,11 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 모든 필드가 채워졌을 때만 저장
     if (valid) {
-      // "/youtube-dl/rest"가 없으면 추가
-      if (!restUrl.endsWith('/youtube-dl/rest')) {
+      // "/rest"가 없으면 추가
+      if (!restUrl.endsWith('/rest')) {
         // 마지막 슬래시를 제거하고 추가
         restUrl = restUrl.replace(/\/+$/, ''); // 중복된 슬래시 제거
-        restUrl += '/youtube-dl/rest';
+        restUrl += '/rest';
       }
 
       chrome.storage.sync.set({ restUrl: restUrl, id: id, pw: pw }, function() {
