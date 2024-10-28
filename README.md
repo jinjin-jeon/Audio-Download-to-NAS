@@ -54,6 +54,7 @@ https://chromewebstore.google.com/detail/video-download-to-nas/fchehlladkkanoekp
 가이드 : https://svrforum.com/nas/1764971
 
 설정에는 youtube-dl-nas 에서 설정한 아이디, 패스워드와 
+
 youtube-dl-nas의 로그인 후 웹페이지 주소를 rest api 부분에 입력해 준 후 저장 버튼을 눌러 저장합니다.
 
 영상 링크 화면에서 우클릭 후 컨텍스트 메뉴에서 해상도를 선택 또는 오버레이에서 영상을 선택
