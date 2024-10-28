@@ -26,7 +26,7 @@ https://chromewebstore.google.com/detail/video-download-to-nas/fchehlladkkanoekp
 유튜브 동영상이 아닌 웹 브라우저 동영상에도 사용 가능
 
 ![설명1](https://github.com/sruinz/youtube-dl-nas-extension/assets/63243848/1f459f0e-9a0c-4974-a59a-9a35bab3bed7)
-![설명2](https://github.com/user-attachments/assets/f3e3e24a-b8bb-4f90-ac2c-fb458f9a580b)
+![설명2](https://github.com/user-attachments/assets/940b8840-7b71-45f8-ae5f-62aad261a9a2)
 ![설명3](https://github.com/user-attachments/assets/2eace179-a4fa-4dc1-aca7-6da8c822a465)
 
 
