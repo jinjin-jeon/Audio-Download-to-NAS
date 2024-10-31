@@ -7,6 +7,9 @@ https://microsoftedge.microsoft.com/addons/detail/youtubedl-to-nas/idefjkbcbhgok
 크롬스토어 다운로드 1.1.0
 https://chromewebstore.google.com/detail/video-download-to-nas/fchehlladkkanoekpjffcfffpfbdaalj?hl=ko
 
+1.1.13 업데이트 내용:
+몇몇 코드 수정
+
 1.1.12 업데이트 내용:
 오버레이 창에 많은 목록이 표시될 때 스크롤 가능 하도록 수정
 
