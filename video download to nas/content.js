@@ -38,7 +38,6 @@ return closeButton;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === 'findVideos') {
- 
     
     const videos = [...document.querySelectorAll('video')].map(video => video.src);
     
@@ -111,8 +110,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
             console.log(`Requesting download for: ${videoUrl}`);
             chrome.runtime.sendMessage({ action: 'downloadVideo', url: videoUrl }, (response) => {
-              console.log(`Response received: ${JSON.stringify(response)}`);
-
               const responseOverlay = document.createElement('div');
               responseOverlay.style.position = 'fixed';
               responseOverlay.style.top = '50%';
@@ -122,7 +119,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
               responseOverlay.style.color = '#fff';
               responseOverlay.style.padding = '20px';
               responseOverlay.style.borderRadius = '5px';
-              responseOverlay.innerText = response.message || '다운로드 요청 완료!';
+              responseOverlay.innerText = response?.message || '다운로드 요청 완료!';
+
               document.body.appendChild(responseOverlay);
             });
           };

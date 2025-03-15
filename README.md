@@ -5,12 +5,6 @@ youtube-dl-nas 의 크롬 확장 프로그램입니다.
 마우스 우클릭시 audio(mp3)다운로드 됩니다.
 
 
-![설명1](https://github.com/sruinz/youtube-dl-nas-extension/assets/63243848/1f459f0e-9a0c-4974-a59a-9a35bab3bed7)
-![설명2](https://github.com/user-attachments/assets/940b8840-7b71-45f8-ae5f-62aad261a9a2)
-![설명3](https://github.com/user-attachments/assets/2eace179-a4fa-4dc1-aca7-6da8c822a465)
-
-
-
 시놀로지 나스 도커에서 실행 가능한 youtube-dl-nas 의 확장 프로그램 입니다.
 (https://github.com/hyeonsangjeon/youtube-dl-nas)
 
