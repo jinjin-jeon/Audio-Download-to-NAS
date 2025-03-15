@@ -101,7 +101,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         },
         body: JSON.stringify({
           url: url,
-          resolution: 'best', // 해상도 기본값 설정
+          resolution: 'audio-mp3', // 해상도 기본값 설정
           id: options.id,
           pw: options.pw
         })
