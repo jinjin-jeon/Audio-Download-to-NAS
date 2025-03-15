@@ -14,6 +14,28 @@ function parsingPlayList() {
   return videos;
 }
 
+function CloseButton(overlay){
+  // 종료 버튼 추가
+  const closeButton = document.createElement('button');
+  closeButton.innerText = 'Close';
+  closeButton.style.color = '#fff';
+  closeButton.style.backgroundColor = '#ff4d4d'; // 종료 버튼은 빨간색
+  closeButton.style.border = 'none';
+  closeButton.style.padding = '10px 20px';
+  closeButton.style.margin = '20px 0';
+  closeButton.style.cursor = 'pointer';
+  closeButton.style.borderRadius = '5px';
+  closeButton.style.fontSize = '16px';
+
+  // 종료 버튼 클릭 시 오버레이 닫기
+  closeButton.onclick = () => {
+    if (overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  };
+return closeButton;
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === 'findVideos') {
  
@@ -67,9 +89,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       overlay.style.alignItems = 'center';  
       overlay.style.justifyContent = 'center'; 
       overlay.style.textAlign = 'center'; 
-
+      overlay.style.overflowY = 'auto'; 
       overlay.innerHTML = '<h2 style="margin: 0;">Select a video to download:</h2>';
-
+      
       videos.forEach(({title, videoUrl}) => {
         if (!!videoUrl && !videoUrl.startsWith('blob:')) {
           const videoButton = document.createElement('button');
@@ -102,29 +124,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
               responseOverlay.style.borderRadius = '5px';
               responseOverlay.innerText = response.message || '다운로드 요청 완료!';
               document.body.appendChild(responseOverlay);
-
-              setTimeout(() => {
-                if (responseOverlay.parentNode) {
-                  responseOverlay.parentNode.removeChild(responseOverlay);
-                }
-              }, 2000);
             });
-
-            if (overlay.parentNode) {
-              overlay.parentNode.removeChild(overlay);
-            }
           };
-
           overlay.appendChild(videoButton);
         }
       });
-
-      overlay.onclick = (event) => {
-        if (event.target === overlay) {
-          overlay.parentNode.removeChild(overlay);
-        }
-      };
-
+      overlay.appendChild(CloseButton(overlay));  
       document.body.appendChild(overlay);
     } else {
       console.log("No videos found on this page.");
