@@ -20,7 +20,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
     chrome.tabs.sendMessage(tab.id, { action: 'findVideos' }, (response) => {
       if (chrome.runtime.lastError) {
-        console.error("메시지 전송 실패: ", JSON.stringify(chrome.runtime.lastError));
+        console.error("메시지 전송 실패: "+ JSON.stringify(chrome.runtime.lastError));
       }
     });
   }
@@ -46,7 +46,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       });
 
       fetch(request).then(res => {
-        console.info('다운로드 성공',JSON.stringify(res))
+        console.info('다운로드 성공'+JSON.stringify(res))
       });
     });
   }

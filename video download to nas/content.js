@@ -1,5 +1,23 @@
+
+
+// /**
+//  * 유튜브에서 페이지에서 플레이리스트를 파싱하는 함수
+//  * @return {?{ title, videoUrl }[]} playlist
+//  */ 
+function parsingPlayList() {
+  const videoItems = document.querySelectorAll('ytd-playlist-panel-video-renderer');
+  const videos = Array.from(videoItems).map(item => {
+    const title = item.querySelector('#video-title').getAttribute('aria-label');
+    const videoUrl = item.querySelector('#wc-endpoint').href;
+    return { title, videoUrl };
+  });
+  return videos;
+}
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action === 'findVideos') {
+ 
+    
     const videos = [...document.querySelectorAll('video')].map(video => video.src);
     
     const iframes = [...document.querySelectorAll('iframe')];
@@ -22,10 +40,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       }
       return null;
     }
-
     const videoUrl = extractVideoUrl();
     if (videoUrl) {
-      videos.push(videoUrl);
+      videos.push({ title:'메인 동영상', videoUrl:videoUrl });
+    }
+    const playList = parsingPlayList();
+    if(playList){
+      videos.push(...playList)
     }
 
     if (videos.length > 0) {
@@ -49,10 +70,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
       overlay.innerHTML = '<h2 style="margin: 0;">Select a video to download:</h2>';
 
-      videos.forEach((videoUrl) => {
-        if (!videoUrl.startsWith('blob:')) {
+      videos.forEach(({title, videoUrl}) => {
+        if (!!videoUrl && !videoUrl.startsWith('blob:')) {
           const videoButton = document.createElement('button');
-          videoButton.innerText = videoUrl;
+          videoButton.innerText = `${title}`;
           videoButton.style.color = '#fff';
           videoButton.style.backgroundColor = '#212529'; 
           videoButton.style.border = 'none'; 
