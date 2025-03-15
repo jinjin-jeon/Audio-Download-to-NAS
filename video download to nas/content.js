@@ -32,6 +32,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       const overlay = document.createElement('div');
       overlay.style.position = 'fixed';
       overlay.style.top = '0';
+      overlay.style.bottom = '0';
       overlay.style.left = '0';
       overlay.style.width = '100%';
       overlay.style.height = '100%';
@@ -42,8 +43,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       overlay.style.overflowY = 'auto';
       overlay.style.display = 'flex'; 
       overlay.style.flexDirection = 'column'; 
-      overlay.style.alignItems = 'center'; 
-      overlay.style.justifyContent = 'flex-start'; 
+      overlay.style.alignItems = 'center';  
+      overlay.style.justifyContent = 'center'; 
+      overlay.style.textAlign = 'center'; 
+
       overlay.innerHTML = '<h2 style="margin: 0;">Select a video to download:</h2>';
 
       videos.forEach((videoUrl) => {

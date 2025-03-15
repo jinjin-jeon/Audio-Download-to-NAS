@@ -9,19 +9,20 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "audio-download",
     title: "Audio download",
-    contexts: ['all'] 
+    contexts: ["page", "selection", "link", "image", "video", "audio"] // ✅ 모든 상황에 메뉴 표시
   });
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "audio-download") {
-    if (tab?.id) {
-      chrome.tabs.sendMessage(tab.id, { action: 'findVideos' }, (response) => {
-        if (chrome.runtime.lastError) {
-          console.error("메시지 전송 실패: ", chrome.runtime.lastError);
-        }
-      });
+    if (!tab?.id) {
+      return console.error('no tab id')
     }
+    chrome.tabs.sendMessage(tab.id, { action: 'findVideos' }, (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("메시지 전송 실패: ", JSON.stringify(chrome.runtime.lastError));
+      }
+    });
   }
 });
 
@@ -44,7 +45,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         })
       });
 
-      fetch(request);
+      fetch(request).then(res => {
+        console.info('다운로드 성공',JSON.stringify(res))
+      });
     });
   }
 });
